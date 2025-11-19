@@ -1,5 +1,4 @@
 CompanyRepID,Password,Name,CompanyName,Department,Position,Email,Status
-just001@ntu.com,password,just,ntu,ntu,idk,just001@ntu.com,APPROVED
 seabuff@jpm.com,password,Seafood Buffet,JP Morgan,Sales & Trading,Managing Director,seabuff@jpm.com,APPROVED
 annawinter@vague.com,password,Anna Winter,Vague,Fashion,Chief Editor,annawinter@vague.com,APPROVED
 timcooked@apple.com,password,Tim Cooked,Apple,Software and Services,Full Stack Developer,timcooked@apple.com,APPROVED
