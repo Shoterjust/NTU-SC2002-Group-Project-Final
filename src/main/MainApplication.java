@@ -1,7 +1,6 @@
 package main;
 
 import boundary.*;
-import boundary.CompanyRepRegistrationUI;
 import controller_class.*;
 import entity_class.*;
 
@@ -36,9 +35,10 @@ public class MainApplication {
             // Provide file handler to login controller for password changes
             loginController.setFileHandler(fileHandler);
 
-            // Main application loop (using instanceof checks for wider JDK compatibility)
+            // Main application loop 
             label:
             while (true) {
+                // Display welcome screen and handle login
                 User user = loginUI.displayWelcomeScreen();
                 if (user == null) {
                     break label;
