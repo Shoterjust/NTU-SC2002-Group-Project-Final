@@ -1,0 +1,6 @@
+InternshipID,Title,Description,Level,PreferredMajor,OpenDate,CloseDate,CompanyName,Status,Slots,Confirmed,Visible
+Apple-timcooked-5,ai engineer,ai ml,ADVANCED,CCDS;SPMS;COE,2025-11-14,2025-12-31,Apple,APPROVED,4,0,true
+Apple-timcooked-3,tech sales,selling iphones,BASIC,NBS;COHASS;WKWSCI;CCDS;COE,2025-11-14,2025-12-31,Apple,APPROVED,10,0,false
+Apple-timcooked-4,hr,hiring people,BASIC,NBS,2025-11-14,2025-12-31,Apple,APPROVED,1,0,true
+Apple-timcooked-1,software engineer,java,BASIC,CCDS;COE;NBS,2025-11-14,2025-12-31,Apple,APPROVED,5,0,true
+Apple-timcooked-2,data engineer,sql stuff,BASIC,CCDS;COE;SPMS,2025-11-14,2025-12-31,Apple,APPROVED,2,0,true

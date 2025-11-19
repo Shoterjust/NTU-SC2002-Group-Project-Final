@@ -1,0 +1,12 @@
+CompanyRepID,Password,Name,CompanyName,Department,Position,Email,Status
+just001@ntu.com,password,just,ntu,ntu,idk,just001@ntu.com,APPROVED
+seabuff@jpm.com,password,Seafood Buffet,JP Morgan,Sales & Trading,Managing Director,seabuff@jpm.com,APPROVED
+annawinter@vague.com,password,Anna Winter,Vague,Fashion,Chief Editor,annawinter@vague.com,APPROVED
+timcooked@apple.com,password,Tim Cooked,Apple,Software and Services,Full Stack Developer,timcooked@apple.com,APPROVED
+mcdonald@steng.com,password,Mac Donald,ST Engineering,Aerospace,Engineer,mcdonald@steng.com,APPROVED
+mikecorleone@exxon.com,password,Micheal Corleone,Exxon Mobil,Trading,Oil Trader,mikecorleone@exxon.com,APPROVED
+shipperlee@grab.com,password,Shipper Lee,Grab,Logistics,Supply Chain Associate,shipperlee@grab.com,APPROVED
+jpowell@mas.com,password,Jeremy Powell,MAS,Policy,Analyst,jpowell@mas.com,APPROVED
+joschol@dsta.com,password,Joshua Schooling,DSTA,Cybersecurity,Head Hacker,joschol@dsta.com,APPROVED
+louispastur@pfizor.com,password,Louis Pasteur,Pfizor,Biosciences R&D,Research Fellow,louispastur@pfizor.com,APPROVED
+drluke@nus.com,iloventu,Doctor Luke,National University of Singapore,Computing,Dean,drluke@nus.com,APPROVED

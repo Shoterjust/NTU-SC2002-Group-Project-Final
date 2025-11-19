@@ -1,0 +1,6 @@
+StaffID,Password,Name,Role,Department,Email
+ngo001,math,Ngo Bao Chau,CAREER_CENTER_STAFF,SBS,ngo001@ntu.edu.sg
+tan002,password,Tan Boon Kiat,CAREER_CENTER_STAFF,COE,tan002@ntu.edu.sg
+tra001,password,Tracy Tan,CAREER_CENTER_STAFF,NBS,tra001@ntu.edu.sg
+lee003,password,Lee Mei Ling,CAREER_CENTER_STAFF,WKW,lee003@ntu.edu.sg
+sng001,password,Sng Hui Lin,CAREER_CENTER_STAFF,CCDS,sng001@ntu.edu.sg

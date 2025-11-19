@@ -1,0 +1,6 @@
+ApplicationID,StudentID,InternshipID,ApplicationStatus,IsAccepted
+U2110007B-Apple-timcooked-2,U2110007B,Apple-timcooked-2,SUCCESSFUL,true
+U2289234P-Apple-timcooked-5,U2289234P,Apple-timcooked-5,UNSUCCESSFUL,false
+U2310001A-Apple-timcooked-2,U2310001A,Apple-timcooked-2,UNSUCCESSFUL,false
+U2310001A-Apple-timcooked-1,U2310001A,Apple-timcooked-1,UNSUCCESSFUL,false
+U2310001A-Apple-timcooked-3,U2310001A,Apple-timcooked-3,SUCCESSFUL,true
