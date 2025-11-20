@@ -8,7 +8,6 @@ import java.io.*;
 /**
  * Career Center Staff UI.
  * Uses ICareerStaffController + ILoginController (DIP)
- * but keeps the same output formatting as your sample.
  */
 public class CareerStaffUI {
     private final Scanner scanner;
@@ -241,8 +240,8 @@ public class CareerStaffUI {
             return;
         }
 
-        System.out.println("\n*************************************************");
-
+        System.out.println("\n*************************************************");  
+        // Separate by user type
         List<Student> students = new ArrayList<>();
         List<CompanyRep> reps = new ArrayList<>();
         List<CareerStaff> staff = new ArrayList<>();
@@ -253,6 +252,7 @@ public class CareerStaffUI {
             else if (user instanceof CareerStaff cs) staff.add(cs);
         }
 
+        //Display students
         System.out.println("\nSTUDENTS (" + students.size() + ")");
         for (Student s : students) {
             System.out.println(s.getUserID() + " - " +
@@ -260,6 +260,7 @@ public class CareerStaffUI {
                     + s.getYearOfStudy() + ")");
         }
 
+        // Display company reps
         System.out.println("\nCOMPANY REPRESENTATIVES (" + reps.size() + ")");
         for (CompanyRep r : reps) {
             String status = r.isApproved() ? "Approved" : "Pending";
@@ -268,6 +269,7 @@ public class CareerStaffUI {
                     status);
         }
 
+         // Display Staff
         System.out.println("\nCAREER CENTER STAFF (" + staff.size() + ")");
         for (CareerStaff cs : staff) {
             System.out.println(cs.getUserID() + " - " + cs.getName() +
@@ -288,6 +290,7 @@ public class CareerStaffUI {
 
         System.out.println("INTERNSHIP LISTINGS: ");
 
+        //Group by status
         Map<Types.InternshipStatus, List<Internship>> iByStatus = new HashMap<>();
         for (Types.InternshipStatus status : Types.InternshipStatus.values()) {
             iByStatus.put(status, new ArrayList<>());
@@ -297,6 +300,7 @@ public class CareerStaffUI {
             iByStatus.get(i.getStatus()).add(i);
         }
 
+        // Print them
         for (Types.InternshipStatus status : Types.InternshipStatus.values()) {
             List<Internship> internships = iByStatus.get(status);
             if (!internships.isEmpty()) {
@@ -315,15 +319,16 @@ public class CareerStaffUI {
     }
 
     private void viewStatistics() {
-        // Still uses DataRepo directly, same as your sample
         DataRepo repo = DataRepo.getInstance();
 
+        // Count users by type
         long students = repo.getAllUsers().stream().filter(u -> u instanceof Student).count();
         long companyReps = repo.getAllUsers().stream().filter(u -> u instanceof CompanyRep).count();
         long staff = repo.getAllUsers().stream().filter(u -> u instanceof CareerStaff).count();
         long approvedReps = repo.getAllUsers().stream()
                 .filter(u -> u instanceof CompanyRep && ((CompanyRep) u).isApproved()).count();
 
+        // Count internships by status
         List<Internship> allInternships = repo.getAllInternships();
         long pending = allInternships.stream()
                 .filter(i -> i.getStatus() == Types.InternshipStatus.PENDING).count();
@@ -382,11 +387,13 @@ public class CareerStaffUI {
 
             String path = REPORTS_DIR + filename;
 
+            // Get filtered internships using controller method
             List<Internship> internships = controller.getFilteredInternships(
                     major != null ? List.of(major) : null,
                     null, level, null, null, status
             );
 
+            // Save to file
             try (PrintWriter writer = new PrintWriter(new FileWriter(path))) {
                 writer.println("              INTERNSHIP PLACEMENT MANAGEMENT REPORT");
                 writer.println();

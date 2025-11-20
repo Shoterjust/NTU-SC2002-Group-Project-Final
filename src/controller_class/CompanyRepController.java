@@ -121,12 +121,14 @@ public class CompanyRepController implements ICompanyRepController {
     /**
      * #18, 19: Application Management and Placement Confirmation
      */
+    // View all applications for a specific internship
     @Override
     public List<Application> viewApplications(CompanyRep rep, String internshipID) {
         Internship internship = findRepInternship(rep, internshipID);
         return new ArrayList<>(internship.getApplications());
     }
 
+    // Process application outcome (mark SUCCESSFUL/UNSUCCESSFUL)
     @Override
     public void processApplication(CompanyRep rep, String internshipID,
                                    String applicationID, Types.ApplicationStatus decision) {
@@ -151,6 +153,7 @@ public class CompanyRepController implements ICompanyRepController {
             app.withdraw();
         }
 
+        // Remove from rep and repository
         rep.getCreatedInternships().remove(internship);
         repo.removeInternship(internshipID);
     }

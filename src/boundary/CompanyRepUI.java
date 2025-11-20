@@ -8,7 +8,7 @@ import java.util.*;
 
 /**
  * Company representative UI. Uses ICompanyRepController and
- * ILoginController (DIP) but formats output as in the provided sample.
+ * ILoginController (DIP)
  */
 public class CompanyRepUI {
     private final Scanner scanner;
@@ -87,6 +87,7 @@ public class CompanyRepUI {
         }
 
         try {
+            // Create internship with ID
             System.out.print("Title: ");
             String title = scanner.nextLine();
 
@@ -370,6 +371,7 @@ public class CompanyRepUI {
             for (String majorStr : majors) {
                 try {
                     Types.Major major = Types.Major.valueOf(majorStr);
+                    // Check if exists
                     if (!internship.getPreferredMajor().contains(major)) {
                         System.out.println(major + " is not in list");
                     } else {

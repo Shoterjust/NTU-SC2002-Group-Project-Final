@@ -5,8 +5,7 @@ import entity_class.*;
 import java.util.*;
 
 /**
- * Student-facing UI. Uses IStudentController and ILoginController
- * (DIP) but formats output as in the provided sample.
+ * Student UI. Uses IStudentController and ILoginController (DIP)
  */
 public class StudentUI {
     private final Scanner scanner;

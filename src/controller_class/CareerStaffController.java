@@ -133,8 +133,10 @@ public class CareerStaffController implements ICareerStaffController {
                         majors.stream().anyMatch(m -> i.getPreferredMajor().contains(m)))
                 .filter(i -> company == null || company.isEmpty() ||
                         i.getCompanyName().toLowerCase().contains(company.toLowerCase()))
+                // open on or after specified date
                 .filter(i -> open == null ||
                         (i.getOpenDate() != null && !i.getOpenDate().before(open)))
+                // closes on or before specified date
                 .filter(i -> close == null ||
                         (i.getCloseDate() != null && !i.getCloseDate().after(close)))
                 .collect(Collectors.toList());

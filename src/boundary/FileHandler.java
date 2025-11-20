@@ -35,7 +35,6 @@ public class FileHandler implements IFileHandler {
 
     private boolean loadedSuccessfully = false;
 
-    /** {@inheritDoc} */
     @Override
     public boolean loadAllData(IDataRepo repo) {
         System.out.println("Loading data from CSV files");
@@ -120,7 +119,7 @@ public class FileHandler implements IFileHandler {
                     continue;
                 }
                 try {
-                    String staffID = parts[0].trim();
+                    String staffID = parts[0].trim(); 
                     String password = parts[1].trim();
                     String name = parts[2].trim();
                     String department = parts[4].trim();
@@ -329,7 +328,6 @@ public class FileHandler implements IFileHandler {
         return errors;
     }
 
-    /** {@inheritDoc} */
     @Override
     public void saveAllData(IDataRepo repo) {
         if (!loadedSuccessfully) {
@@ -558,19 +556,16 @@ public class FileHandler implements IFileHandler {
         }
     }
 
-    /** {@inheritDoc} */
     @Override
     public void updateUserPassword(String userID, String newPassword) {
         userPasswords.put(userID, newPassword);
     }
 
-    /** {@inheritDoc} */
     @Override
     public String getPasswordForUser(String userID) {
         return userPasswords.get(userID);
     }
 
-    /** {@inheritDoc} */
     @Override
     public String getStudentEmail(String studentID) {
         return studentEmails.get(studentID);

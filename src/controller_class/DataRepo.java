@@ -23,6 +23,8 @@ public class DataRepo implements IDataRepo {
         return instance;
     }
 
+    // User operations
+
     @Override
     public void addUser(User user) { userMap.put(user.getUserID(), user); }
 
@@ -34,6 +36,8 @@ public class DataRepo implements IDataRepo {
 
     @Override
     public List<User> getAllUsers() { return new ArrayList<>(userMap.values()); }
+
+    // Internship operations
 
     @Override
     public void addInternship(Internship internship) { internshipMap.put(internship.getInternshipID(), internship); }
@@ -47,6 +51,8 @@ public class DataRepo implements IDataRepo {
     @Override
     public List<Internship> getAllInternships() { return new ArrayList<>(internshipMap.values()); }
 
+    // Withdrawal request operations
+    
     @Override
     public void addWithdrawal(WithdrawalRequest request) { withdrawalMap.put(request.getRequestID(), request); }
 
