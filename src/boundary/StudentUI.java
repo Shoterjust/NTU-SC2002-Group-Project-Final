@@ -170,7 +170,7 @@ public class StudentUI {
             WithdrawalRequest wr = studentController.requestWithdrawal(currentStudent, applicationID);
             System.out.println("Withdrawal request submitted.");
             System.out.println("Request ID: " + wr.getRequestID());
-            System.out.println("Status: " + wr.getStatus() + " PENDING (awaiting Career Center approval)");
+            System.out.println("Status: " + wr.getStatus() + " (awaiting Career Center approval)");
         } catch (Exception e) {
             System.out.println("Failed to request withdrawal: " + e.getMessage());
         }
