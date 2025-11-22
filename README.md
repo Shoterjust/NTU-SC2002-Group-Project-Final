@@ -37,7 +37,7 @@ Data is stored **in CSV files** and **in Java HashMaps** (via `DataRepo`) during
         - `Internship.csv`
         - `Application.csv`
         - `WithdrawalRequest.csv`
-    - Also manages:
+    - Also manage:
         - Passwords (`getPasswordForUser`, `updateUserPassword`)
         - Student emails (`getStudentEmail`)
 
