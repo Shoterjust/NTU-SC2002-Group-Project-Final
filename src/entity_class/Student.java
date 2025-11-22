@@ -44,6 +44,7 @@ public class Student extends User implements IStudent {
         return Types.UserRole.STUDENT;
     }
 
+    @Override
     public String getInfo() {
         return "User ID: " + getUserID() +
                 "\nRole: " + getUserRole() +
