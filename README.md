@@ -1,7 +1,7 @@
 # NTU-SC2002-Group-Project-Final
 # Internship Management System
 
-This is a console-based internship management system for **Students**, **Company Representatives**, and **Career Staff**.  
+This is a console-based internship management system for **Students**, **Company Representatives**, and **Career Center Staff**.  
 Data is stored **in CSV files** and **in Java HashMaps** (via `DataRepo`) during runtime.
 
 ---
