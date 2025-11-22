@@ -24,7 +24,7 @@ public class LoginUI {
         this.registrationUI = registrationUI;
     }
 
-    /** Display welcome screen and handle login/registration */
+    /* Display welcome screen and handle login/registration */
     public User displayWelcomeScreen() {
         while (true) {
             System.out.println("\nINTERNSHIP PLACEMENT MANAGEMENT SYSTEM");
@@ -63,7 +63,7 @@ public class LoginUI {
         }
     }
 
-    /** Handle User Login */
+    /* Handle User Login */
     private User handleLogin() {
         System.out.println("----- LOGIN -----");
         System.out.print("User ID: ");

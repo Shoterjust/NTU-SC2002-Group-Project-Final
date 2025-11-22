@@ -20,8 +20,7 @@ public class CompanyRepRegistrationUI {
 
     /**
      * Constructs a new registration UI.
-     *
-     * @param repo        the data repository abstraction used to store new users
+     * @param repo the data repository abstraction used to store new users
      * @param fileHandler the file handler used to persist changes
      */
     public CompanyRepRegistrationUI(IDataRepo repo, IFileHandler fileHandler) {

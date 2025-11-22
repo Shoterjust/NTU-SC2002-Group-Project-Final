@@ -15,7 +15,7 @@ public class LoginController implements ILoginController {
 
     /**
      * Constructs a new LoginController with the given data repository.
-     *
+
      * @param repo the repository used to find users and persist changes
      */
     public LoginController(IDataRepo repo) {
@@ -36,7 +36,7 @@ public class LoginController implements ILoginController {
     /**
      * Authenticates a user.
      *
-     * @param userID   the user ID
+     * @param userID the user ID
      * @param password the provided password
      * @return the authenticated user, or {@code null} if credentials are invalid
      */
@@ -62,7 +62,7 @@ public class LoginController implements ILoginController {
     /**
      * Changes a user’s password.
      *
-     * @param user        the user whose password should be changed
+     * @param user the user whose password should be changed
      * @param oldPassword the current password
      * @param newPassword the new password
      * @return {@code true} if the password was changed; {@code false} otherwise

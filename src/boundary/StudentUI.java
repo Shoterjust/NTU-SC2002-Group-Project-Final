@@ -22,7 +22,7 @@ public class StudentUI {
         this.currentStudent = student;
     }
 
-    /**
+    /*
      * Display Student Menu
      */
     public void displayMenu() {
