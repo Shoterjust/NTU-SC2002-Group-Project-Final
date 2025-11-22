@@ -8,6 +8,10 @@ Data is stored **in CSV files** and **in Java HashMaps** (via `DataRepo`) during
 
 ## Project Structure
 
+> **Overall Flow**  
+> **CSV → HashMaps (on run)** → system runs on HashMaps → **HashMaps → CSV (on exit)**.
+
+
 ### 1. Entry Point
 
 - **`MainApplication.java`**
@@ -148,4 +152,3 @@ UIs are responsible only for **input/output**; they call controllers for actual 
         - Current contents of `DataRepo` (users, internships, applications, withdrawals) are written back to CSV.
         - Any updated passwords or statuses are persisted.
 
-Overall Flow: **CSV → HashMaps (on run)** → system runs on HashMaps → **HashMaps → CSV (on exit)**.
