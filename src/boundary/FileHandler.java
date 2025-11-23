@@ -12,12 +12,12 @@ import java.util.*;
 /**
  * Handles reading from and writing to CSV files.
  *
- * <p>This class implements the {@link IFileHandler} interface and
+ * This class implements the {@link IFileHandler} interface and
  * interacts with the {@link IDataRepo} abstraction rather than the
- * concrete {@code DataRepo} implementation.  This design adheres to
+ * concrete {@code DataRepo} implementation. This design adheres to
  * the Dependency Inversion Principle (DIP), allowing UIs and
  * controllers to depend on abstractions instead of concrete
- * classes.</p>
+ * classes.
  */
 public class FileHandler implements IFileHandler {
     // Directory containing CSV data files.
@@ -35,6 +35,10 @@ public class FileHandler implements IFileHandler {
 
     private boolean loadedSuccessfully = false;
 
+    /** Load all data from CSV files into the provided repository.
+     * @param repo the data repository abstraction to load data into
+     * @return true if data loaded successfully without errors
+     */
     @Override
     public boolean loadAllData(IDataRepo repo) {
         System.out.println("Loading data from CSV files");
@@ -63,7 +67,7 @@ public class FileHandler implements IFileHandler {
         return loadedSuccessfully;
     }
 
-    // Student loading
+    /** Load students from CSV */
     private int loadStudents(IDataRepo repo) {
         int success = 0, errors = 0;
         try (BufferedReader br = new BufferedReader(new FileReader(STUDENT_FILE))) {
@@ -104,7 +108,7 @@ public class FileHandler implements IFileHandler {
         return errors;
     }
 
-    // Staff loading
+    /** Load staff from CSV */
     private int loadStaff(IDataRepo repo) {
         int success = 0, errors = 0;
         try (BufferedReader br = new BufferedReader(new FileReader(STAFF_FILE))) {
@@ -141,7 +145,7 @@ public class FileHandler implements IFileHandler {
         return errors;
     }
 
-    // Company reps loading
+    /** Load company representatives from CSV */
     private int loadCompanyReps(IDataRepo repo) {
         int success = 0, errors = 0;
         File file = new File(COMPANYREP_FILE);
@@ -188,7 +192,7 @@ public class FileHandler implements IFileHandler {
         return errors;
     }
 
-    // Internships loading
+    /** Load internships from CSV */
     private int loadInternships(IDataRepo repo) {
         File file = new File(INTERNSHIP_FILE);
         if (!file.exists()) {
@@ -278,7 +282,7 @@ public class FileHandler implements IFileHandler {
         return errors;
     }
 
-    // Applications loading
+    /** Load applications from CSV */
     private int loadApplications(IDataRepo repo) {
         File file = new File(APPLICATION_FILE);
         if (!file.exists()) {
@@ -328,6 +332,9 @@ public class FileHandler implements IFileHandler {
         return errors;
     }
 
+    /** Save all data from the repository back to CSV files.
+     * @param repo the data repository abstraction to save data from
+     */
     @Override
     public void saveAllData(IDataRepo repo) {
         if (!loadedSuccessfully) {
@@ -344,7 +351,7 @@ public class FileHandler implements IFileHandler {
         System.out.println("All data saved successfully!");
     }
 
-    // Save students
+    /** Save students */
     private void saveStudents(IDataRepo repo) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(STUDENT_FILE))) {
             writer.println("StudentID,Password,Name,Major,Year,Email");
@@ -366,7 +373,7 @@ public class FileHandler implements IFileHandler {
         }
     }
 
-    // Save staff
+    /** Save staff */
     private void saveStaff(IDataRepo repo) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(STAFF_FILE))) {
             writer.println("StaffID,Password,Name,Role,Department,Email");
@@ -387,7 +394,7 @@ public class FileHandler implements IFileHandler {
         }
     }
 
-    // Save company reps
+    /** Save company reps */
     private void saveCompanyReps(IDataRepo repo) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(COMPANYREP_FILE))) {
             writer.println("CompanyRepID,Password,Name,CompanyName,Department,Position,Email,Status");
@@ -410,7 +417,7 @@ public class FileHandler implements IFileHandler {
         }
     }
 
-    // Save internships
+    /** Save internships */
     private void saveInternships(IDataRepo repo) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(INTERNSHIP_FILE))) {
             writer.println("InternshipID,Title,Description,Level,PreferredMajor,OpenDate,CloseDate,CompanyName,Status,Slots,Confirmed,Visible");
@@ -437,7 +444,7 @@ public class FileHandler implements IFileHandler {
         }
     }
 
-    // Save applications
+    /** Save applications */
     private void saveApplications(IDataRepo repo) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(APPLICATION_FILE))) {
             writer.println("ApplicationID,StudentID,InternshipID,ApplicationStatus,IsAccepted");
@@ -458,7 +465,7 @@ public class FileHandler implements IFileHandler {
         }
     }
 
-    // Withdrawal loading
+    /** Withdrawal loading */
     private int loadWithdrawalRequests(IDataRepo repo) {
         File file = new File(WITHDRAWAL_FILE);
         if (!file.exists()) {
@@ -538,7 +545,7 @@ public class FileHandler implements IFileHandler {
         return errors;
     }
 
-    // Save withdrawal requests
+    /** Save withdrawal requests */
     private void saveWithdrawalRequest(IDataRepo repo) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(WITHDRAWAL_FILE))) {
             writer.println("RequestID,ApplicationID,StudentID,InternshipID,RequestDate,Status");
@@ -556,22 +563,25 @@ public class FileHandler implements IFileHandler {
         }
     }
 
+    /** Update user password in memory */
     @Override
     public void updateUserPassword(String userID, String newPassword) {
         userPasswords.put(userID, newPassword);
     }
 
+    /** Get password for user */
     @Override
     public String getPasswordForUser(String userID) {
         return userPasswords.get(userID);
     }
 
+    /** Get student email */
     @Override
     public String getStudentEmail(String studentID) {
         return studentEmails.get(studentID);
     }
 
-    // Map majors with fallback
+    /** Map string to Major enum, with special cases */
     private Types.Major mapMajor(String majorStr) {
         Map<String, Types.Major> majorMap = new HashMap<>();
         for (Types.Major major : Types.Major.values()) {
@@ -587,7 +597,7 @@ public class FileHandler implements IFileHandler {
         return result;
     }
 
-    // Helpers to create empty data files if missing
+    /** Helpers to create empty data files if missing */
     private void createEmptyCompanyRepFile() {
         try (PrintWriter writer = new PrintWriter(new FileWriter(COMPANYREP_FILE))) {
             writer.println("CompanyRepID,Password,Name,CompanyName,Department,Position,Email,Status");

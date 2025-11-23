@@ -8,7 +8,12 @@ public class WithdrawalRequest {
     private LocalDateTime requestDate;
     private Types.WithdrawalStatus status;
 
-    // Constructor
+    /** 
+     * Constructor for WithdrawalRequest
+     *
+     * @param student the student making the withdrawal request
+     * @param application the application to be withdrawn
+     */
     public WithdrawalRequest(Student student, Application application) {
         this.requestID = "WR-" + application.getApplicationID();
         this.application = application;
@@ -17,12 +22,15 @@ public class WithdrawalRequest {
         this.status = Types.WithdrawalStatus.PENDING;
     }
 
-    // Getters and setters
+    /**
+     * Getters and setters
+     */
     public String getRequestID() { return requestID; }
     public Application getApplication() { return application; }
     public Student getStudent() { return student; }
     public LocalDateTime getRequestDate() { return requestDate; }
     public Types.WithdrawalStatus getStatus() { return status; }
+    
     public void setStatus(Types.WithdrawalStatus status) { this.status = status; }
 
     public void setRequestID(String requestID) {

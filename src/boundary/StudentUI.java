@@ -5,7 +5,9 @@ import entity_class.*;
 import java.util.*;
 
 /**
- * Student UI. Uses IStudentController and ILoginController (DIP)
+ * Student UI. Handles student interactions after login.
+ * Depends on {@link IStudentController} and {@link ILoginController}
+ * abstractions for business logic and authentication.
  */
 public class StudentUI {
     private final Scanner scanner;
@@ -13,6 +15,11 @@ public class StudentUI {
     private final ILoginController loginController;
     private final Student currentStudent;
 
+    /** Constructs a new StudentUI.
+     * @param studentController the student controller abstraction
+     * @param loginController the login controller abstraction
+     * @param student the currently logged-in student
+     */
     public StudentUI(IStudentController studentController,
                      ILoginController loginController,
                      Student student) {
@@ -22,7 +29,7 @@ public class StudentUI {
         this.currentStudent = student;
     }
 
-    /*
+    /**
      * Display Student Menu
      */
     public void displayMenu() {
@@ -76,6 +83,7 @@ public class StudentUI {
         }
     }
 
+    /** View eligible internships for the student */
     private void viewInternships() {
         System.out.println("\nEligible Internships for student:");
 
@@ -99,6 +107,7 @@ public class StudentUI {
         }
     }
 
+    /** Apply for an internship */
     private void applyForInternship() {
         System.out.print("\nEnter Internship ID to apply: ");
         String internshipID = scanner.nextLine().trim();
@@ -113,6 +122,7 @@ public class StudentUI {
         }
     }
 
+    /** View student's applications */
     private void viewApplications() {
         System.out.println("\nMy Applications: ");
 
@@ -137,6 +147,7 @@ public class StudentUI {
         }
     }
 
+    /** Accept an internship offer */
     private void acceptInternship() {
         System.out.print("\nEnter Application ID to accept: ");
         String applicationID = scanner.nextLine().trim();
@@ -150,6 +161,7 @@ public class StudentUI {
         }
     }
 
+    /** Reject an internship offer */
     private void rejectInternship() {
         System.out.print("\nEnter Application ID to reject: ");
         String applicationID = scanner.nextLine().trim();
@@ -162,6 +174,7 @@ public class StudentUI {
         }
     }
 
+    /** Request withdrawal of an application */
     private void requestWithdrawal() {
         System.out.print("\nEnter Application ID to withdraw: ");
         String applicationID = scanner.nextLine().trim();
@@ -176,6 +189,7 @@ public class StudentUI {
         }
     }
 
+    /** Change student's password */
     private void changePassword() {
         System.out.print("Enter old password: ");
         String oldPassword = scanner.nextLine();
@@ -194,6 +208,7 @@ public class StudentUI {
         }
     }
 
+    /** View student profile */
     private void viewProfile() {
         System.out.println(currentStudent.getInfo());
         System.out.println("\nRegistered: " + currentStudent.getRegistrationDate());

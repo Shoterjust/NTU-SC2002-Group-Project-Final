@@ -7,7 +7,10 @@ import java.io.*;
 
 /**
  * Career Center Staff UI.
- * Uses ICareerStaffController + ILoginController (DIP)
+ * This class provides the user interface for Career Center Staff
+ * to oversee the internship placement system. It follows the Dependency
+ * Inversion Principle (DIP) by depending on the {@link ICareerStaffController} 
+ * and {@link ILoginController} abstractions.
  */
 public class CareerStaffUI {
     private final Scanner scanner;
@@ -15,6 +18,12 @@ public class CareerStaffUI {
     private final ILoginController loginController;
     private final CareerStaff currentStaff;
 
+    /**
+     * Constructor
+     * @param controller the controller abstraction for career staff operations
+     * @param loginController the controller abstraction for login operations
+     * @param staff the currently logged-in career staff member
+     */
     public CareerStaffUI(ICareerStaffController controller,
                          ILoginController loginController,
                          CareerStaff staff) {
@@ -24,6 +33,9 @@ public class CareerStaffUI {
         this.currentStaff = staff;
     }
 
+    /**
+     * Display Career Staff Menu 
+     */
     public void displayMenu() {
         System.out.println(currentStaff.getName() + ": Career Center Menu");
         while (true) {
@@ -78,6 +90,7 @@ public class CareerStaffUI {
         }
     }
 
+    /** Authorize pending Company Representatives */
     private void authorizeCompanyReps() {
         List<CompanyRep> pending = controller.getPendingCompanyReps();
 
@@ -129,6 +142,7 @@ public class CareerStaffUI {
         }
     }
 
+    /** Approve or Reject pending Internships */
     private void approveRejectInternships() {
         List<Internship> pending = controller.getPendingInternships();
 
@@ -179,6 +193,7 @@ public class CareerStaffUI {
         }
     }
 
+    /** Process pending Withdrawal Requests */
     private void processWithdrawals() {
         List<WithdrawalRequest> pending = controller.getPendingWithdrawals();
 
@@ -232,6 +247,7 @@ public class CareerStaffUI {
         }
     }
 
+    /** View all users in the system */
     private void viewAllUsers() {
         List<User> allUsers = controller.viewAllUsers();
 
@@ -252,7 +268,7 @@ public class CareerStaffUI {
             else if (user instanceof CareerStaff cs) staff.add(cs);
         }
 
-        //Display students
+        // Display students
         System.out.println("\nSTUDENTS (" + students.size() + ")");
         for (Student s : students) {
             System.out.println(s.getUserID() + " - " +
@@ -280,6 +296,7 @@ public class CareerStaffUI {
         System.out.println("Total Users: " + allUsers.size());
     }
 
+    /** View all internships in the system */
     private void viewAllInternships() {
         List<Internship> allInternships = controller.viewAllInternships();
 
@@ -318,6 +335,7 @@ public class CareerStaffUI {
         System.out.println("\nTotal Internships: " + allInternships.size());
     }
 
+    /** View system statistics */
     private void viewStatistics() {
         DataRepo repo = DataRepo.getInstance();
 
@@ -356,6 +374,7 @@ public class CareerStaffUI {
         System.out.println("  Pending: " + controller.getPendingWithdrawals().size());
     }
 
+    /** Generate internship report with filters */
     private void generateReport() {
         final String REPORTS_DIR = "reports/";
         File reportsFolder = new File(REPORTS_DIR);
@@ -426,6 +445,7 @@ public class CareerStaffUI {
         }
     }
 
+    /** Change current staff's password */
     private void changePassword() {
         System.out.print("Enter old password: ");
         String oldPassword = scanner.nextLine();
@@ -452,6 +472,7 @@ public class CareerStaffUI {
         }
     }
 
+    /** View current staff's profile */
     private void viewProfile() {
         System.out.println(currentStaff.getInfo());
         System.out.println("Registration Date: " + currentStaff.getRegistrationDate());

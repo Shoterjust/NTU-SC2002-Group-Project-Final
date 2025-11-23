@@ -7,8 +7,11 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * Company representative UI. Uses ICompanyRepController and
- * ILoginController (DIP)
+ * Company representative UI. 
+ * This class provides the user interface for company representatives
+ * to manage internships and applications. It adheres to the Dependency
+ * Inversion Principle (DIP) by depending on the {@link ICompanyRepController}
+ * and {@link ILoginController} abstractions.
  */
 public class CompanyRepUI {
     private final Scanner scanner;
@@ -16,6 +19,12 @@ public class CompanyRepUI {
     private final ILoginController loginController;
     private final CompanyRep currentRep;
 
+    /**
+     * Constructs a new CompanyRepUI.
+     * @param controller the controller abstraction for company representative operations
+     * @param loginController the controller abstraction for login operations
+     * @param rep the currently logged-in company representative
+     */
     public CompanyRepUI(ICompanyRepController controller,
                         ILoginController loginController,
                         CompanyRep rep) {
@@ -25,6 +34,9 @@ public class CompanyRepUI {
         this.currentRep = rep;
     }
 
+    /*
+     * Display Company Rep Menu
+     */
     public void displayMenu() {
         System.out.println("Company Representative: " + currentRep.getName());
         while (true) {
@@ -79,6 +91,7 @@ public class CompanyRepUI {
         }
     }
 
+    /** Create a new internship */
     private void createInternship() {
         System.out.println("\nCreate Internship: ");
         if (!currentRep.canCreateMoreInternships()) {
@@ -147,6 +160,7 @@ public class CompanyRepUI {
         }
     }
 
+    /** View created internships */
     private void viewInternships() {
         System.out.println("\nMY INTERNSHIPS: ");
 
@@ -227,6 +241,7 @@ public class CompanyRepUI {
         }
     }
 
+    /** Update an internship */
     private void updateInternship() {
         System.out.print("\nEnter Internship ID to update: ");
         String internshipID = scanner.nextLine().trim();
@@ -281,7 +296,7 @@ public class CompanyRepUI {
         }
     }
 
-    // Update helpers
+    /** Update basic details of an internship */
     private void updateBasicDetails(String internshipID) {
         System.out.print("New title (or press Enter to skip): ");
         String title = scanner.nextLine().trim();
@@ -313,6 +328,7 @@ public class CompanyRepUI {
         }
     }
 
+    /** Add preferred major to an internship */
     private void addMajor(String internshipID) {
         Internship internship = currentRep.getCreatedInternships().stream()
                 .filter(i -> i.getInternshipID().equals(internshipID))
@@ -346,6 +362,7 @@ public class CompanyRepUI {
         }
     }
 
+    /** Remove preferred major from an internship */
     private void removeMajor(String internshipID) {
         try {
             Internship internship = currentRep.getCreatedInternships().stream()
@@ -394,6 +411,7 @@ public class CompanyRepUI {
         }
     }
 
+    /** Update opening and closing dates of an internship */
     private void updateDates(String internshipID) {
         try {
             System.out.print("\nNew opening date (yyyy-MM-dd or Enter to skip): ");
@@ -420,6 +438,7 @@ public class CompanyRepUI {
         }
     }
 
+    /** Delete an internship */
     private void deleteInternship() {
         System.out.print("\nEnter Internship ID to delete: ");
         String internshipID = scanner.nextLine().trim();
@@ -440,6 +459,7 @@ public class CompanyRepUI {
         }
     }
 
+    /** View applications for an internship */
     private void viewApplications() {
         System.out.print("\nEnter Internship ID: ");
         String internshipID = scanner.nextLine().trim();
@@ -468,6 +488,7 @@ public class CompanyRepUI {
         }
     }
 
+    /** Process an application (approve/reject) */
     private void processApplication() {
         System.out.print("\nEnter Internship ID: ");
         String internshipID = scanner.nextLine().trim();
@@ -494,6 +515,7 @@ public class CompanyRepUI {
         }
     }
 
+    /** Toggle internship visibility */
     private void toggleVisibility() {
         System.out.print("\nEnter Internship ID: ");
         String internshipID = scanner.nextLine().trim();
@@ -506,6 +528,7 @@ public class CompanyRepUI {
         }
     }
 
+    /** Change current rep's password */
     private void changePassword() {
         System.out.print("Enter old password: ");
         String oldPassword = scanner.nextLine();
@@ -524,6 +547,7 @@ public class CompanyRepUI {
         }
     }
 
+    /** View current rep's profile */
     private void viewProfile() {
         System.out.println(currentRep.getInfo());
         System.out.println();

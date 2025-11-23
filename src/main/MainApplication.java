@@ -4,7 +4,34 @@ import boundary.*;
 import controller_class.*;
 import entity_class.*;
 
+
 public class MainApplication {
+
+    /**
+     * Entry point for the Internship Placement Management System.
+     *
+     * Responsibilities:
+     * - Display application banner and exit message.
+     * - Create and initialize application-wide dependencies:
+     *   - Data repository 
+     *   - File handler 
+     *   - Controllers 
+     *   - Registration and login UIs 
+     * - Load persisted CSV data at startup and save data on each user logout and before exit.
+     * - Drive the main application loop that:
+     *   - Presents a welcome screen
+     *   - Dispatches authenticated users to their respective UI menus
+     *   - Persists changes after each logout.
+     *   - Saves all data before application exit.
+     *
+     * Error handling:
+     * - Catches and logs unexpected exceptions thrown during initialization or the main loop.
+     *
+     * Notes:
+     * - The class depends on the application's abstractions (IDataRepo, IFileHandler, controller and UI interfaces).
+     * 
+     * @param args command-line arguments
+     */
     public static void main(String[] args) {
         displayBanner();
 
@@ -71,6 +98,9 @@ public class MainApplication {
         }
     }
 
+    /**
+     * Displays the application banner.
+     */
     private static void displayBanner() {
         System.out.println("=================================================================");
         System.out.println();
@@ -79,6 +109,9 @@ public class MainApplication {
         System.out.println("=================================================================");
     }
 
+    /**
+     * Displays the application exit message.
+     */
     private static void displayExitMessage() {
         System.out.println("=================================================================");
         System.out.println();

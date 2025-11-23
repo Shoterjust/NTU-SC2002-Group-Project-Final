@@ -4,6 +4,7 @@ import entity_class.*;
 import java.util.Date;
 import java.util.List;
 
+/** Career staff controller abstraction. */
 public interface ICareerStaffController {
     List<User> viewAllUsers();
     List<Internship> viewAllInternships();

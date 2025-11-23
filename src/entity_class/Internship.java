@@ -21,7 +21,10 @@ public class Internship {
     private List<Application> applications;
     private boolean isVisible;
 
-    // Constructor
+    /**  
+     * Constructor using only an ID
+     * Fills other fields with default values
+    */
     public Internship(String internshipID) {
         this.internshipID = internshipID;
         this.title = "Default Title";
@@ -36,6 +39,10 @@ public class Internship {
         this.isVisible = true;
     }
 
+    /** 
+     * Constructor 
+     * Validations are performed on required fields 
+     */
     public Internship(String internshipID, String title, String description,
                       Types.InternshipLevel level, List<Types.Major> preferredMajor,
                       Date openDate, Date closeDate, String companyName,
@@ -84,7 +91,11 @@ public class Internship {
         this.isVisible = true;
     }
 
-    /** Domain validation: Checks if the internship is eligible for the given student (based on year and major) */
+    /** 
+     * Checks if the internship is eligible for the given student (based on year and major) 
+     * @param student the student to check eligibility for
+     * @return true if eligible, false otherwise
+     */
     public boolean isEligibleForStudent(Student student) {
         if (student == null) return false;
         // Major match
@@ -99,7 +110,10 @@ public class Internship {
         return isOpen();
     }
 
-    /** Domain query: is internship currently open according to date and status */
+    /** 
+     * Check if internship is currently open according to date and status 
+     * @return true if open, false otherwise
+     */
     public boolean isOpen() {
         Date now = new Date();
         return status == Types.InternshipStatus.APPROVED &&
@@ -109,7 +123,10 @@ public class Internship {
                 confirmedSlots < numberOfSlots;
     }
 
-    /** Domain behavior - add confirmed intern */
+    /** 
+     * Add confirmed intern 
+     * @param student the student to add as confirmed intern
+     */
     public void addSlot(Student student) {
         if (confirmedSlots >= numberOfSlots) {
             throw new IllegalStateException("No available slots");
@@ -122,7 +139,10 @@ public class Internship {
         }
     }
 
-    /** Domain behavior - remove confirmed intern */
+    /** 
+     * Remove confirmed intern 
+     * @param student the student to remove from confirmed interns
+     */
     public void removeSlot(Student student) {
         if (!interns.remove(student)) {
             throw new IllegalArgumentException("Student not in confirmed interns list");
@@ -136,7 +156,9 @@ public class Internship {
         }
     }
 
-    // Getters and setters
+    /**
+     * Getters and setters
+     */
     public String getInternshipID() { return internshipID; }
 
     public String getTitle() { return title; }

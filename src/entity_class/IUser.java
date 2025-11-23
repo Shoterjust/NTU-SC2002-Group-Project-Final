@@ -3,12 +3,10 @@ package entity_class;
 import java.time.LocalDateTime;
 
 /**
- * Base user interface exposing common operations and attributes.
- *
- * <p>This interface supports the Interface Segregation Principle by
+ * This interface supports the Interface Segregation Principle by
  * separating user responsibilities from role-specific interfaces. All
  * concrete user types (students, company representatives, career
- * centre staff) implement this interface.</p>
+ * centre staff) implement this interface.
  */
 public interface IUser {
     /**
@@ -20,7 +18,7 @@ public interface IUser {
     boolean validateID();
 
     /**
-     * Returns the role of the user (e.g., STUDENT, COMPANY_REPRESENTATIVE).
+     * Returns the role of the user 
      *
      * @return the user role
      */

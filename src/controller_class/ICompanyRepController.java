@@ -4,6 +4,7 @@ import entity_class.*;
 import java.util.Date;
 import java.util.List;
 
+/** Company representative controller abstraction. */
 public interface ICompanyRepController {
     Internship createInternship(CompanyRep rep, String title, String description,
                                 Types.InternshipLevel level, List<Types.Major> majors,

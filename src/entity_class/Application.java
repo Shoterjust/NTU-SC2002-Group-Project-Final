@@ -9,7 +9,13 @@ public class Application {
     private Types.ApplicationStatus status;
     private boolean isAccepted;
 
-    // Constructor
+    /**
+     * Constructor
+     *
+     * @param applicationID unique ID for the application
+     * @param internship the Internship being applied for
+     * @param student the Student submitting the application
+     */
     public Application(String applicationID, Internship internship, Student student) {
         this.applicationID = applicationID;
         this.internship = internship;
@@ -19,26 +25,26 @@ public class Application {
         this.isAccepted = false;
     }
 
-    /** Domain behavior - update application status */
+    /** 
+     * Update application status 
+     * @param newStatus the new application status
+    */
     public void updateStatus(Types.ApplicationStatus newStatus) {
         this.status = newStatus;
-        // Mark isAccepted based on status
-        //this.isAccepted = (newStatus == Types.ApplicationStatus.SUCCESSFUL);
-        //only update isAccepted if student accepts, not when company rep processes
     }
 
-    /** Domain behavior: Withdraws application and update */
+    /** 
+     * Withdraws application and update 
+     * application status to UNSUCCESSFUL
+     */
     public void withdraw() {
         this.isAccepted = false;
         status = Types.ApplicationStatus.UNSUCCESSFUL;
     }
 
-    /** Find the Internship by ID
-    public Internship findInternshipByID(String internshipID) {
-        return CareerStaff.findInternshipByID(internshipID);
-    }*/
-
-    // Getters and setters
+    /** 
+     * Getters and setters
+     */
     public String getApplicationID() { return applicationID; }
     public Internship getInternship() { return internship; }
     public Student getStudent() { return student; }

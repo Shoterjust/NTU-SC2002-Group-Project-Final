@@ -17,6 +17,11 @@ public class LoginUI {
     private final IFileHandler fileHandler;
     private final CompanyRepRegistrationUI registrationUI;
 
+    /** Constructs a new LoginUI.
+     * @param loginController the login controller abstraction
+     * @param fileHandler the file handler abstraction
+     * @param registrationUI the registration UI for company representatives
+     */
     public LoginUI(ILoginController loginController, IFileHandler fileHandler, CompanyRepRegistrationUI registrationUI) {
         this.scanner = new Scanner(System.in);
         this.loginController = loginController;
@@ -24,7 +29,7 @@ public class LoginUI {
         this.registrationUI = registrationUI;
     }
 
-    /* Display welcome screen and handle login/registration */
+    /** Display welcome screen and handle login/registration */
     public User displayWelcomeScreen() {
         while (true) {
             System.out.println("\nINTERNSHIP PLACEMENT MANAGEMENT SYSTEM");
@@ -63,7 +68,7 @@ public class LoginUI {
         }
     }
 
-    /* Handle User Login */
+    /** Handle User Login */
     private User handleLogin() {
         System.out.println("----- LOGIN -----");
         System.out.print("User ID: ");

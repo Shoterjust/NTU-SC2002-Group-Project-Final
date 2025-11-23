@@ -10,7 +10,9 @@ public abstract class User implements IUser {
     protected String password;
     protected LocalDateTime registrationDate;
 
-    /** Constructors */
+    /** 
+     * Constructors 
+     */
     public User(String userID, String name) {
         this(userID, name, "password");
     }
@@ -28,12 +30,12 @@ public abstract class User implements IUser {
         this.registrationDate = LocalDateTime.now();
     }
 
-    /** Domain Validation: return true if credentials match */
+    /** Return true if credentials match */
     public boolean loginCheck(String userID, String pw) {
         return this.userID.equals(userID) && password.equals(pw);
     }
 
-    /** Domain Behavior: return true if oldPassword matches current this.password */
+    /** Return true if oldPassword matches current this.password */
     public boolean changePassword(String oldPassword, String newPassword) {
         if (!this.password.equals(oldPassword)) return false;
         this.password = newPassword;
