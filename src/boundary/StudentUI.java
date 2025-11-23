@@ -102,7 +102,7 @@ public class StudentUI {
         System.out.println("   Majors: " +
                 (filterMajors == null || filterMajors.isEmpty() ? "Any" : filterMajors));
         System.out.println("   Level: " + (filterLevel == null ? "Any" : filterLevel));
-        System.out.println("   Closing Date (on or before): " +
+        System.out.println("   Closing Date: " +
                 (filterClosingDate == null
                         ? "Any"
                         : new java.text.SimpleDateFormat("yyyy-MM-dd").format(filterClosingDate)));
