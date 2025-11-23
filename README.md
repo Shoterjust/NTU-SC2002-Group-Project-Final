@@ -17,7 +17,7 @@ Data is stored **in CSV files** and **in Java HashMaps** (via `DataRepo`) during
 - **`MainApplication.java`**
     - Start the program.
     - Create `DataRepo`, `FileHandler`, controllers, and UIs.
-    - Load data from CSV into memory when started and save back to CSV on exit.
+    - Load data from CSV into memory when started and save back to CSV on logout and before exit.
 
 ---
 
