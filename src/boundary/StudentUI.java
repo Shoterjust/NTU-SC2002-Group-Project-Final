@@ -14,6 +14,9 @@ public class StudentUI {
     private final IStudentController studentController;
     private final ILoginController loginController;
     private final Student currentStudent;
+    private List<Types.Major> filterMajors = new ArrayList<>();
+    private Types.InternshipLevel filterLevel = null;
+    private Date filterClosingDate = null;
 
     /** Constructs a new StudentUI.
      * @param studentController the student controller abstraction
@@ -94,13 +97,111 @@ public class StudentUI {
             return;
         }
 
-        int count = 1;
+        // Show current filter settings
+        System.out.println("Current Filters:");
+        System.out.println("   Majors: " +
+                (filterMajors == null || filterMajors.isEmpty() ? "Any" : filterMajors));
+        System.out.println("   Level: " + (filterLevel == null ? "Any" : filterLevel));
+        System.out.println("   Closing Date (on or before): " +
+                (filterClosingDate == null
+                        ? "Any"
+                        : new java.text.SimpleDateFormat("yyyy-MM-dd").format(filterClosingDate)));
+
+        // Ask if user wants to change filters
+        System.out.print("Would you like to update filters? (yes/no): ");
+        String updateChoice = scanner.nextLine().trim();
+        if (updateChoice.equalsIgnoreCase("yes")) {
+            // Majors filter
+            System.out.print("Filter by preferred majors (separate by space, Enter for any): ");
+            String majorsInput = scanner.nextLine().trim().toUpperCase();
+            if (majorsInput.isEmpty()) {
+                filterMajors.clear();
+            } else {
+                List<Types.Major> selected = new ArrayList<>();
+                String[] tokens = majorsInput.split("\\s+");
+                for (String token : tokens) {
+                    try {
+                        Types.Major major = Types.Major.valueOf(token);
+                        if (!selected.contains(major)) {
+                            selected.add(major);
+                        }
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Invalid major: " + token);
+                    }
+                }
+                filterMajors = selected;
+            }
+
+            // Level filter
+            System.out.print("Filter by level (BASIC/INTERMEDIATE/ADVANCED or Enter for any): ");
+            String levelStr = scanner.nextLine().trim().toUpperCase();
+            if (levelStr.isEmpty()) {
+                filterLevel = null;
+            } else {
+                try {
+                    filterLevel = Types.InternshipLevel.valueOf(levelStr);
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Invalid level. No level filter applied.");
+                    filterLevel = null;
+                }
+            }
+
+            // Closing date filter
+            System.out.print("Filter by closing date (yyyy-MM-dd) or Enter for any: ");
+            String dateStr = scanner.nextLine().trim();
+            if (dateStr.isEmpty()) {
+                filterClosingDate = null;
+            } else {
+                try {
+                    filterClosingDate =
+                            new java.text.SimpleDateFormat("yyyy-MM-dd").parse(dateStr);
+                } catch (Exception e) {
+                    System.out.println("Invalid date format. Closing date filter removed.");
+                    filterClosingDate = null;
+                }
+            }
+        }
+
+        // Apply filters on the eligible internships
+        List<Internship> filtered = new ArrayList<>();
         for (Internship intern : internships) {
+            // Majors (at least one overlap)
+            if (filterMajors != null && !filterMajors.isEmpty()) {
+                boolean match = false;
+                for (Types.Major m : filterMajors) {
+                    if (intern.getPreferredMajor().contains(m)) {
+                        match = true;
+                        break;
+                    }
+                }
+                if (!match) continue;
+            }
+
+            // Level
+            if (filterLevel != null && intern.getLevel() != filterLevel) continue;
+            
+            // Closing date 
+            if (filterClosingDate != null && !intern.getCloseDate().equals(filterClosingDate)) continue;
+            
+            filtered.add(intern);
+        }
+
+        // Default ordering: alphabetical by internship title (case-insensitive)
+        filtered.sort((a, b) -> a.getTitle().compareToIgnoreCase(b.getTitle()));
+
+        if (filtered.isEmpty()) {
+            System.out.println("No internships match the current filters.");
+            return;
+        }
+
+        int count = 1;
+        for (Internship intern : filtered) {
             System.out.println(count + ". " + intern.getTitle());
             System.out.println("   Company: " + intern.getCompanyName());
             System.out.println("   Level: " + intern.getLevel());
             System.out.println("   Majors: " + intern.getPreferredMajor());
-            System.out.println("   Slots: " + (intern.getNumberOfSlots() - intern.getConfirmedSlots()) + " available");
+            System.out.println("   Slots: " +
+                    (intern.getNumberOfSlots() - intern.getConfirmedSlots()) + " available");
             System.out.println("   ID: " + intern.getInternshipID());
             System.out.println();
             count++;

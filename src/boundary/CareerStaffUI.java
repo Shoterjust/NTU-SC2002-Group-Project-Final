@@ -17,6 +17,12 @@ public class CareerStaffUI {
     private final ICareerStaffController controller;
     private final ILoginController loginController;
     private final CareerStaff currentStaff;
+    private List<Types.Major> filterMajors = new ArrayList<>();
+    private Types.InternshipLevel filterLevel = null;
+    private Date filterClosingDate = null;
+    private Types.InternshipStatus filterStatus = null;
+    private String filterCompany = null;
+
 
     /**
      * Constructor
@@ -298,6 +304,9 @@ public class CareerStaffUI {
 
     /** View all internships in the system */
     private void viewAllInternships() {
+
+        System.out.println("INTERNSHIP LISTINGS: ");
+        
         List<Internship> allInternships = controller.viewAllInternships();
 
         if (allInternships == null || allInternships.isEmpty()) {
@@ -305,34 +314,146 @@ public class CareerStaffUI {
             return;
         }
 
-        System.out.println("INTERNSHIP LISTINGS: ");
+        // Show current filter settings
+        System.out.println("Current Filters:");
+        System.out.println("   Majors: " +
+                (filterMajors == null || filterMajors.isEmpty() ? "Any" : filterMajors));
+        System.out.println("   Level: " + (filterLevel == null ? "Any" : filterLevel));
+        System.out.println("   Closing Date (on or before): " +
+                (filterClosingDate == null
+                        ? "Any"
+                        : new java.text.SimpleDateFormat("yyyy-MM-dd").format(filterClosingDate)));
+        System.out.println("   Status: " + (filterStatus == null ? "Any" : filterStatus));
+        System.out.println("   Company: " + (filterCompany == null ? "Any" : filterCompany));
 
-        //Group by status
-        Map<Types.InternshipStatus, List<Internship>> iByStatus = new HashMap<>();
-        for (Types.InternshipStatus status : Types.InternshipStatus.values()) {
-            iByStatus.put(status, new ArrayList<>());
-        }
-
-        for (Internship i : allInternships) {
-            iByStatus.get(i.getStatus()).add(i);
-        }
-
-        // Print them
-        for (Types.InternshipStatus status : Types.InternshipStatus.values()) {
-            List<Internship> internships = iByStatus.get(status);
-            if (!internships.isEmpty()) {
-                System.out.println(status + " (" + internships.size() + ")");
-                for (Internship i : internships) {
-                    String visible = i.isVisible() ? "Visible" : "Hidden";
-                    System.out.println(i.getInternshipID() + " - " + i.getTitle() +
-                            " (" + i.getCompanyName() + ") - " + i.getLevel() +
-                            " - Slots: " + i.getConfirmedSlots() + "/" + i.getNumberOfSlots() +
-                            " - " + visible);
+        // Ask if user wants to change filters
+        System.out.print("Would you like to update filters? (yes/no): ");
+        String updateChoice = scanner.nextLine().trim();
+        if (updateChoice.equalsIgnoreCase("yes")) {
+            // Majors filter
+            System.out.print("Filter by preferred majors (separate by space, Enter for any): ");
+            String majorsInput = scanner.nextLine().trim().toUpperCase();
+            if (majorsInput.isEmpty()) {
+                filterMajors.clear();
+            } else {
+                List<Types.Major> selected = new ArrayList<>();
+                String[] tokens = majorsInput.split("\\s+");
+                for (String token : tokens) {
+                    try {
+                        Types.Major major = Types.Major.valueOf(token);
+                        if (!selected.contains(major)) {
+                            selected.add(major);
+                        }
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Invalid major: " + token);
+                    }
                 }
+                filterMajors = selected;
+            }
+
+            // Level filter
+            System.out.print("Filter by level (BASIC/INTERMEDIATE/ADVANCED or Enter for any): ");
+            String levelStr = scanner.nextLine().trim().toUpperCase();
+            if (levelStr.isEmpty()) {
+                filterLevel = null;
+            } else {
+                try {
+                    filterLevel = Types.InternshipLevel.valueOf(levelStr);
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Invalid level. No level filter applied.");
+                    filterLevel = null;
+                }
+            }
+
+            // Closing date filter
+            System.out.print("Filter by closing date (yyyy-MM-dd) or Enter for any: ");
+            String dateStr = scanner.nextLine().trim();
+            if (dateStr.isEmpty()) {
+                filterClosingDate = null;
+            } else {
+                try {
+                    filterClosingDate =
+                            new java.text.SimpleDateFormat("yyyy-MM-dd").parse(dateStr);
+                } catch (Exception e) {
+                    System.out.println("Invalid date format. Closing date filter removed.");
+                    filterClosingDate = null;
+                }
+            }
+
+            // Status filter
+            System.out.print("Filter by status (PENDING/APPROVED/REJECTED/FILLED or Enter for any): ");
+            String statusStr = scanner.nextLine().trim().toUpperCase();
+            if (statusStr.isEmpty()) {
+                filterStatus = null;
+            } else {
+                try {
+                    filterStatus = Types.InternshipStatus.valueOf(statusStr);
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Invalid status. No status filter applied.");
+                    filterStatus = null;
+                }
+            }
+
+            // Company filter (substring match) 
+            System.out.print("Filter by company name (or Enter for any): ");
+            String companyStr = scanner.nextLine().trim();
+            if (companyStr.isEmpty()) {
+                filterCompany = null;
+            } else {
+                filterCompany = companyStr;
             }
         }
 
-        System.out.println("\nTotal Internships: " + allInternships.size());
+        // Apply filters
+        List<Internship> filtered = new ArrayList<>();
+        for (Internship intern : allInternships) {
+
+            // Majors (at least one overlap)
+            if (filterMajors != null && !filterMajors.isEmpty()) {
+                boolean matchesMajor = false;
+                for (Types.Major major : filterMajors) {
+                    if (intern.getPreferredMajor().contains(major)) {
+                        matchesMajor = true;
+                        break;
+                    }
+                }
+                if (!matchesMajor) continue;
+            }
+
+            // Level 
+            if (filterLevel != null && intern.getLevel() != filterLevel) continue;
+
+            // Closing date 
+            if (filterClosingDate != null && !intern.getCloseDate().equals(filterClosingDate)) continue;
+            
+            // Status filter
+            if (filterStatus != null && intern.getStatus() != filterStatus) continue;
+
+            // Company filter
+            if (filterCompany != null && !intern.getCompanyName().toLowerCase().contains(filterCompany.toLowerCase())) continue;
+
+            filtered.add(intern);
+        }
+
+        // Default ordering: alphabetical by internship title (case-insensitive)
+        filtered.sort((a, b) -> a.getTitle().compareToIgnoreCase(b.getTitle()));
+
+        if (filtered.isEmpty()) {
+            System.out.println("No internships match the current filters.");
+            return;
+        }
+
+        for (Internship i : filtered) {
+            String visible = i.isVisible() ? "Visible" : "Hidden";
+            System.out.println(i.getInternshipID() + " - " + i.getTitle() +
+                    " (" + i.getCompanyName() + ") - " + i.getLevel() +
+                    " - Slots: " + i.getConfirmedSlots() + "/" + i.getNumberOfSlots() +
+                    " - " + visible);
+        }
+
+        System .out.println();
+        System.out.println("Total internships filtered: " + filtered.size());
+        System.out.println("Total Internships: " + allInternships.size());
     }
 
     /** View system statistics */
